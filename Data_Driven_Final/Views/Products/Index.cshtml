@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Data_Driven_Final.Models.Product>
+
+<h2>Products</h2>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Create New Product</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category / Categories</th>
+            <th>In Stock</th>
+            <th>Tags</th>
+            <th>Material</th>
+            <th>Capacity (oz)</th>
+            <th>Warranty (Months)</th>
+            <th>Specifications</th>
+            <th>Reviews</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+
+                <td>
+                    @item.Category
+                    @if (item.Categories != null)
+                    {
+                        <div>@string.Join(", ", item.Categories)</div>
+                    }
+                </td>
+
+                <td>@(item.InStock == true ? "Yes" : "No")</td>
+
+                <td>
+                    @if (item.Tags != null)
+                    {
+                        @string.Join(", ", item.Tags)
+                    }
+                </td>
+
+                <td>@item.Material</td>
+                <td>@item.CapacityOz</td>
+                <td>@item.WarrantyMonths</td>
+
+                <td>
+                    @if (item.Specifications != null)
+                    {
+                        if (item.Specifications.Color != null)
+                        {
+                            <div><strong>Color:</strong> @item.Specifications.Color</div>
+                        }
+                        if (item.Specifications.BatteryLife != null)
+                        {
+                            <div><strong>Battery:</strong> @item.Specifications.BatteryLife</div>
+                        }
+                        if (item.Specifications.Connection != null)
+                        {
+                            <div><strong>Connection:</strong> @item.Specifications.Connection</div>
+                        }
+                        if (item.Specifications.Processor != null)
+                        {
+                            <div><strong>CPU:</strong> @item.Specifications.Processor.Brand @item.Specifications.Processor.Model (@item.Specifications.Processor.Cores cores)</div>
+                        }
+                        if (item.Specifications.Graphics != null)
+                        {
+                            <div><strong>GPU:</strong> @item.Specifications.Graphics.Brand @item.Specifications.Graphics.Model</div>
+                        }
+                        if (item.Specifications.MemoryGB != null)
+                        {
+                            <div><strong>Memory:</strong> @item.Specifications.MemoryGB GB</div>
+                        }
+                        if (item.Specifications.Storage != null)
+                        {
+                            <div><strong>Storage:</strong> @item.Specifications.Storage.Type @item.Specifications.Storage.CapacityGB GB</div>
+                        }
+                    }
+                </td>
+
+                <td>
+                    @if (item.Reviews != null)
+                    {
+                        foreach (var r in item.Reviews)
+                        {
+                            <div>⭐ @r.Rating — @r.Comment</div>
+                        }
+                    }
+                </td>
+
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
