@@ -1,0 +1,56 @@
+﻿@page
+@model Data_Driven_Final.Pages.Products.CreateModel
+
+<h2>Create Product</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label>Name</label>
+        <input asp-for="Product.Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <input asp-for="Product.Price" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Category (single)</label>
+        <input asp-for="Product.Category" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Categories (comma-separated)</label>
+        <input class="form-control" name="CategoriesInput" />
+    </div>
+
+    <div class="mb-3">
+        <label>Tags (comma-separated)</label>
+        <input asp-for="TagsInput" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>In Stock</label>
+        <input asp-for="Product.InStock" type="checkbox" />
+    </div>
+
+    <h4>Specifications</h4>
+
+    <div class="mb-3">
+        <label>Color</label>
+        <input asp-for="Product.Specifications.Color" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Battery Life</label>
+        <input asp-for="Product.Specifications.BatteryLife" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Connection</label>
+        <input asp-for="Product.Specifications.Connection" class="form-control" />
+    </div>
+
+    <button class="btn btn-success">Create</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

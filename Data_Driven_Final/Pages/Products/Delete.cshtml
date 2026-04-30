@@ -1,0 +1,13 @@
+﻿@page
+@model Data_Driven_Final.Pages.Products.DeleteModel
+
+<h2>Delete Product</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete <strong>@Model.Product.Name</strong>?
+</div>
+
+<form method="post">
+    <button class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

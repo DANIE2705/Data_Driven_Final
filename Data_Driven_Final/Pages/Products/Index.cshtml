@@ -1,9 +1,10 @@
-﻿@model IEnumerable<Data_Driven_Final.Models.Product>
+﻿@page
+@model Data_Driven_Final.Pages.Products.IndexModel
 
-<h2>Products</h2>
+<h2 class="mb-3">Products</h2>
 
 <p>
-    <a class="btn btn-success" asp-action="Create">Create New Product</a>
+    <a class="btn btn-success" asp-page="Create">Create New Product</a>
 </p>
 
 <table class="table table-bordered table-striped">
@@ -24,14 +25,17 @@
     </thead>
 
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Products)
         {
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Price</td>
 
                 <td>
-                    @item.Category
+                    @if (!string.IsNullOrEmpty(item.Category))
+                    {
+                        <div>@item.Category</div>
+                    }
                     @if (item.Categories != null)
                     {
                         <div>@string.Join(", ", item.Categories)</div>
@@ -96,10 +100,11 @@
                 </td>
 
                 <td>
-                    <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-primary btn-sm" asp-page="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-page="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
