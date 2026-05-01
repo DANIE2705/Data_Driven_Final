@@ -25,10 +25,12 @@ namespace Data_Driven_Final.Pages.Products
 
         public void OnGet()
         {
+            Console.WriteLine("ONGET FIRED");
             Product.Specifications = new Specifications();
             Product.Tags = new List<string>();
             Product.Categories = new List<string>();
             Product.Reviews = new List<Review>();
+
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -36,19 +38,16 @@ namespace Data_Driven_Final.Pages.Products
             if (!ModelState.IsValid)
                 return Page();
 
-            // Parse tags
             Product.Tags = TagsInput?
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(t => t.Trim())
                 .ToList() ?? new List<string>();
 
-            // Parse categories
             Product.Categories = CategoriesInput?
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(c => c.Trim())
                 .ToList() ?? new List<string>();
 
-            // Ensure Specifications exists
             Product.Specifications ??= new Specifications();
 
             await _service.CreateAsync(Product);

@@ -1,0 +1,42 @@
+﻿@page
+@model Data_Driven_Final.Pages.Products.AskModel
+
+<h2>Ask About Products (AI Powered)</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Your Question</label>
+        <input asp-for="Question" class="form-control" placeholder="e.g., Show me electronics under $500" />
+        <span asp-validation-for="Question" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ask AI</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.AiAnswer))
+{
+    <hr />
+    <h4>AI Answer</h4>
+    <p>@Model.AiAnswer</p>
+
+    <h5>Matching Products</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Results)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.Category</td>
+                    <td>@p.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

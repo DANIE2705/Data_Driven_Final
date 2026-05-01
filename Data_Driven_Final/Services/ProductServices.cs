@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Data_Driven_Final.Models;
 
+
 namespace Data_Driven_Final.Services
 {
     public class ProductService
@@ -37,5 +38,58 @@ namespace Data_Driven_Final.Services
         // DELETE
         public async Task DeleteAsync(string id) =>
             await _products.DeleteOneAsync(p => p.Id == id);
+        public async Task<List<Product>> QueryAsync(
+    string? category,
+    decimal? maxPrice,
+    string? sortBy,
+    string? sortDirection)
+{
+    var filter = Builders<Product>.Filter.Empty;
+
+    if (!string.IsNullOrEmpty(category))
+        filter &= Builders<Product>.Filter.Eq(p => p.Category, category);
+
+    if (maxPrice.HasValue)
+        filter &= Builders<Product>.Filter.Lte(p => p.Price, maxPrice.Value);
+
+    var query = _products.Find(filter);
+
+    if (!string.IsNullOrEmpty(sortBy))
+    {
+        bool asc = sortDirection?.ToLower() == "asc";
+
+        if (sortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
+            query = asc ? query.SortBy(p => p.Price) : query.SortByDescending(p => p.Price);
+    }
+
+    return await query.ToListAsync();
+}
+        public async Task<List<Product>> Query(
+            string? category,
+            decimal? maxPrice,
+            string? sortBy,
+            string? sortDirection)
+        {
+            var filter = Builders<Product>.Filter.Empty;
+
+            if (!string.IsNullOrEmpty(category))
+                filter &= Builders<Product>.Filter.Eq(p => p.Category, category);
+
+            if (maxPrice.HasValue)
+                filter &= Builders<Product>.Filter.Lte(p => p.Price, maxPrice.Value);
+
+            var query = _products.Find(filter);
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                bool asc = sortDirection?.ToLower() == "asc";
+
+                if (sortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
+                    query = asc ? query.SortBy(p => p.Price) : query.SortByDescending(p => p.Price);
+            }
+
+            return await query.ToListAsync();
+        }
+
     }
 }
