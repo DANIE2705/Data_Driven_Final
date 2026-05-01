@@ -4,7 +4,7 @@ using Data_Driven_Final.Services;
 using Data_Driven_Final.Models;
 using System.Text.Json;
 
-namespace Data_Driven_Final.Pages.Products
+namespace Data_Driven_Final.Pages.AskGemini
 {
     public class AskModel : PageModel
     {

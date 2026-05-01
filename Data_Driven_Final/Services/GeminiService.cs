@@ -22,7 +22,7 @@ namespace Data_Driven_Final.Services
         public async Task<string> AskGeminiAsync(string prompt)
         {
             var url =
-                $"https://generativelanguage.googleapis.com/v1/models/{_options.Model}:generateContent?key={_options.ApiKey}";
+           $"https://generativelanguage.googleapis.com/v1beta/models/{_options.Model}:generateContent?key={_options.ApiKey}";
 
             var requestBody = new
             {
