@@ -35,6 +35,24 @@ namespace Data_Driven_Final.Pages.Products
 
         public async Task<IActionResult> OnPostAsync()
         {
+            Product.Specifications ??= new Specifications();
+            Product.Tags ??= new List<string>();
+            Product.Categories ??= new List<string>();
+            Product.Reviews ??= new List<Review>();
+
+            if (!ModelState.IsValid)
+                return Page();
+
+            Product.Tags = TagsInput?
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(t => t.Trim())
+                .ToList() ?? new List<string>();
+
+            Product.Categories = CategoriesInput?
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => c.Trim())
+                .ToList() ?? new List<string>();
+
             if (!ModelState.IsValid)
                 return Page();
 

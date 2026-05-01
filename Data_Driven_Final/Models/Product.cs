@@ -7,11 +7,11 @@ namespace Data_Driven_Final.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         // Common fields
         [BsonElement("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [BsonElement("price")]
         public decimal? Price { get; set; }

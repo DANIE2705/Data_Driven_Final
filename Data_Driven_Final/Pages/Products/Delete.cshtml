@@ -1,13 +1,24 @@
-﻿@page
+﻿@page "{id}"
 @model Data_Driven_Final.Pages.Products.DeleteModel
 
 <h2>Delete Product</h2>
 
-<div class="alert alert-danger">
-    Are you sure you want to delete <strong>@Model.Product.Name</strong>?
-</div>
+@if (Model.Product == null)
+{
+    <p class="text-danger">Product not found.</p>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>Are you sure you want to delete this product?</h4>
+        <p><strong>Name:</strong> @Model.Product.Name</p>
+        <p><strong>Price:</strong> @(Model.Product.Price?.ToString("C") ?? "—")</p>
+        <p><strong>Category:</strong> @(Model.Product.Category ?? "—")</p>
+    </div>
 
-<form method="post">
-    <button class="btn btn-danger">Delete</button>
-    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
-</form>
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+}

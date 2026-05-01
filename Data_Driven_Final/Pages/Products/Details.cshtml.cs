@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Data_Driven_Final.Models;
 using Data_Driven_Final.Services;
 
 namespace Data_Driven_Final.Pages.Products
 {
-    public class DeleteModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly ProductService _service;
 
         public Product? Product { get; set; }
 
-        public DeleteModel(ProductService service)
+        public DetailsModel(ProductService service)
         {
             _service = service;
         }
@@ -24,12 +24,6 @@ namespace Data_Driven_Final.Pages.Products
                 return NotFound();
 
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(string id)
-        {
-            await _service.DeleteAsync(id);
-            return RedirectToPage("Index");
         }
     }
 }

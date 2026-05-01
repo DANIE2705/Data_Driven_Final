@@ -1,56 +1,135 @@
-﻿@page
+﻿@page "{id}"
 @model Data_Driven_Final.Pages.Products.EditModel
 
 <h2>Edit Product</h2>
 
-<form method="post">
-    <div class="mb-3">
-        <label>Name</label>
-        <input asp-for="Product.Name" class="form-control" />
-    </div>
+@if (Model.Product == null)
+{
+    <p class="text-danger">Product not found.</p>
+}
+else
+{
+    <form method="post">
+        @Html.AntiForgeryToken()
 
-    <div class="mb-3">
-        <label>Price</label>
-        <input asp-for="Product.Price" class="form-control" />
-    </div>
+        <!-- BASIC PRODUCT INFO -->
+        <h4>Basic Information</h4>
 
-    <div class="mb-3">
-        <label>Category (single)</label>
-        <input asp-for="Product.Category" class="form-control" />
-    </div>
+        <div class="mb-3">
+            <label>Name</label>
+            <input asp-for="Product.Name" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>Categories (comma-separated)</label>
-        <input class="form-control" name="CategoriesInput" value="@(Model.Product.Categories != null ? string.Join(", ", Model.Product.Categories) : "")" />
-    </div>
+        <div class="mb-3">
+            <label>Price</label>
+            <input asp-for="Product.Price" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>Tags (comma-separated)</label>
-        <input asp-for="TagsInput" class="form-control" />
-    </div>
+        <div class="mb-3">
+            <label>Category (single)</label>
+            <input asp-for="Product.Category" class="form-control" />
+        </div>
 
-    <div class="mb-3">
-        <label>In Stock</label>
-        <input asp-for="Product.InStock" type="checkbox" />
-    </div>
+        <div class="mb-3">
+            <label>Categories (comma-separated)</label>
+            <input class="form-control" name="CategoriesInput" value="@string.Join(", ", Model.Product.Categories ?? new List<string>())" />
+        </div>
 
-    <h4>Specifications</h4>
+        <div class="mb-3">
+            <label>Tags (comma-separated)</label>
+            <input asp-for="TagsInput" class="form-control" value="@string.Join(", ", Model.Product.Tags ?? new List<string>())" />
+        </div>
 
-    <div class="mb-3">
-        <label>Color</label>
-        <input asp-for="Product.Specifications.Color" class="form-control" />
-    </div>
+        <div class="mb-3 form-check">
+            <input asp-for="Product.InStock" type="checkbox" class="form-check-input" />
+            <label class="form-check-label">In Stock</label>
+        </div>
 
-    <div class="mb-3">
-        <label>Battery Life</label>
-        <input asp-for="Product.Specifications.BatteryLife" class="form-control" />
-    </div>
+        <hr />
 
-    <div class="mb-3">
-        <label>Connection</label>
-        <input asp-for="Product.Specifications.Connection" class="form-control" />
-    </div>
+        <!-- SPECIFICATIONS -->
+        <h4>Specifications</h4>
 
-    <button class="btn btn-primary">Save</button>
-    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
-</form>
+        <div class="mb-3">
+            <label>Color</label>
+            <input asp-for="Product.Specifications.Color" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Battery Life</label>
+            <input asp-for="Product.Specifications.BatteryLife" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Connection</label>
+            <input asp-for="Product.Specifications.Connection" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Memory (GB)</label>
+            <input asp-for="Product.Specifications.MemoryGB" class="form-control" />
+        </div>
+
+        <h5>Processor</h5>
+        <div class="mb-3">
+            <label>Brand</label>
+            <input asp-for="Product.Specifications.Processor.Brand" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Model</label>
+            <input asp-for="Product.Specifications.Processor.Model" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Cores</label>
+            <input asp-for="Product.Specifications.Processor.Cores" class="form-control" />
+        </div>
+
+        <h5>Graphics</h5>
+        <div class="mb-3">
+            <label>Brand</label>
+            <input asp-for="Product.Specifications.Graphics.Brand" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Model</label>
+            <input asp-for="Product.Specifications.Graphics.Model" class="form-control" />
+        </div>
+
+        <h5>Storage</h5>
+        <div class="mb-3">
+            <label>Type</label>
+            <input asp-for="Product.Specifications.Storage.Type" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Capacity (GB)</label>
+            <input asp-for="Product.Specifications.Storage.CapacityGB" class="form-control" />
+        </div>
+
+        <hr />
+
+        <!-- MATERIAL / CAPACITY -->
+        <h4>Additional Attributes</h4>
+
+        <div class="mb-3">
+            <label>Material</label>
+            <input asp-for="Product.Material" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Capacity (oz)</label>
+            <input asp-for="Product.CapacityOz" class="form-control" />
+        </div>
+
+        <hr />
+
+        <!-- WARRANTY -->
+        <h4>Warranty</h4>
+
+        <div class="mb-3">
+            <label>Warranty (months)</label>
+            <input asp-for="Product.WarrantyMonths" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+}

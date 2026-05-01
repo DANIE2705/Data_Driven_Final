@@ -1,11 +1,13 @@
 ﻿@page
 @model Data_Driven_Final.Pages.Products.CreateModel
 
-
 <h2>Create Product</h2>
 
 <form method="post">
     @Html.AntiForgeryToken()
+
+    <!-- BASIC PRODUCT INFO -->
+    <h4>Basic Information</h4>
 
     <div class="mb-3">
         <label>Name</label>
@@ -32,12 +34,15 @@
         <input asp-for="TagsInput" class="form-control" />
     </div>
 
-    <div class="mb-3">
-        <label>In Stock</label>
-        <input asp-for="Product.InStock" type="checkbox" />
+    <div class="mb-3 form-check">
+        <input asp-for="Product.InStock" type="checkbox" class="form-check-input" />
+        <label class="form-check-label">In Stock</label>
     </div>
 
-    <h4>Specifications</h4>
+    <hr />
+
+    <!-- DOCUMENT TYPE 1: SPECIFICATIONS -->
+    <h4>Specifications (Document Type 1)</h4>
 
     <div class="mb-3">
         <label>Color</label>
@@ -52,6 +57,73 @@
     <div class="mb-3">
         <label>Connection</label>
         <input asp-for="Product.Specifications.Connection" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Memory (GB)</label>
+        <input asp-for="Product.Specifications.MemoryGB" class="form-control" />
+    </div>
+
+    <h5>Processor</h5>
+    <div class="mb-3">
+        <label>Brand</label>
+        <input asp-for="Product.Specifications.Processor.Brand" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Model</label>
+        <input asp-for="Product.Specifications.Processor.Model" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Cores</label>
+        <input asp-for="Product.Specifications.Processor.Cores" class="form-control" />
+    </div>
+
+    <h5>Graphics</h5>
+    <div class="mb-3">
+        <label>Brand</label>
+        <input asp-for="Product.Specifications.Graphics.Brand" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Model</label>
+        <input asp-for="Product.Specifications.Graphics.Model" class="form-control" />
+    </div>
+
+    <h5>Storage</h5>
+    <div class="mb-3">
+        <label>Type</label>
+        <input asp-for="Product.Specifications.Storage.Type" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Capacity (GB)</label>
+        <input asp-for="Product.Specifications.Storage.CapacityGB" class="form-control" />
+    </div>
+
+    <hr />
+
+    <!-- DOCUMENT TYPE 2: MATERIAL / CAPACITY / REVIEWS -->
+    <h4>Additional Attributes (Document Type 2)</h4>
+
+    <div class="mb-3">
+        <label>Material</label>
+        <input asp-for="Product.Material" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Capacity (oz)</label>
+        <input asp-for="Product.CapacityOz" class="form-control" />
+    </div>
+
+    <h5>Reviews (Optional)</h5>
+    <p class="text-muted">Reviews are added separately in Edit mode.</p>
+
+    <hr />
+
+    <!-- DOCUMENT TYPE 3: WARRANTY -->
+    <h4>Warranty (Document Type 3)</h4>
+
+    <div class="mb-3">
+        <label>Warranty (months)</label>
+        <input asp-for="Product.WarrantyMonths" class="form-control" />
     </div>
 
     <button type="submit" class="btn btn-success">Create</button>

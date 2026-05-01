@@ -1,0 +1,118 @@
+﻿@page "{id}"
+@model Data_Driven_Final.Pages.Products.DetailsModel
+
+<h2>Product Details</h2>
+
+@if (Model.Product == null)
+{
+    <p class="text-danger">Product not found.</p>
+}
+else
+{
+    <div class="card p-3">
+
+        <h3>@Model.Product.Name</h3>
+        <p><strong>Price:</strong> @(Model.Product.Price?.ToString("C") ?? "—")</p>
+        <p><strong>Category:</strong> @(Model.Product.Category ?? "—")</p>
+        <p><strong>In Stock:</strong> @(Model.Product.InStock == true ? "Yes" : "No")</p>
+
+        <p>
+            <strong>Tags:</strong>
+            @if (Model.Product.Tags != null && Model.Product.Tags.Any())
+            {
+                @string.Join(", ", Model.Product.Tags)
+            }
+            else
+            {
+                <span>—</span>
+            }
+        </p>
+
+        <p>
+            <strong>Categories:</strong>
+            @if (Model.Product.Categories != null && Model.Product.Categories.Any())
+            {
+                @string.Join(", ", Model.Product.Categories)
+            }
+            else
+            {
+                <span>—</span>
+            }
+        </p>
+
+        <hr />
+
+        <!-- SPECIFICATIONS -->
+        @if (Model.Product.Specifications != null)
+        {
+            <h4>Specifications</h4>
+
+            <p><strong>Color:</strong> @(Model.Product.Specifications.Color ?? "—")</p>
+            <p><strong>Battery Life:</strong> @(Model.Product.Specifications.BatteryLife ?? "—")</p>
+            <p><strong>Connection:</strong> @(Model.Product.Specifications.Connection ?? "—")</p>
+            <p><strong>Memory (GB):</strong> @(Model.Product.Specifications.MemoryGB?.ToString() ?? "—")</p>
+
+            @if (Model.Product.Specifications.Processor != null)
+            {
+                <h5>Processor</h5>
+                <p><strong>Brand:</strong> @(Model.Product.Specifications.Processor.Brand ?? "—")</p>
+                <p><strong>Model:</strong> @(Model.Product.Specifications.Processor.Model ?? "—")</p>
+                <p><strong>Cores:</strong> @(Model.Product.Specifications.Processor.Cores?.ToString() ?? "—")</p>
+            }
+
+            @if (Model.Product.Specifications.Graphics != null)
+            {
+                <h5>Graphics</h5>
+                <p><strong>Brand:</strong> @(Model.Product.Specifications.Graphics.Brand ?? "—")</p>
+                <p><strong>Model:</strong> @(Model.Product.Specifications.Graphics.Model ?? "—")</p>
+            }
+
+            @if (Model.Product.Specifications.Storage != null)
+            {
+                <h5>Storage</h5>
+                <p><strong>Type:</strong> @(Model.Product.Specifications.Storage.Type ?? "—")</p>
+                <p><strong>Capacity (GB):</strong> @(Model.Product.Specifications.Storage.CapacityGB?.ToString() ?? "—")</p>
+            }
+
+            <hr />
+        }
+
+        <!-- MATERIAL / CAPACITY -->
+        <h4>Additional Attributes</h4>
+        <p><strong>Material:</strong> @(Model.Product.Material ?? "—")</p>
+        <p><strong>Capacity (oz):</strong> @(Model.Product.CapacityOz?.ToString() ?? "—")</p>
+
+        <hr />
+
+        <!-- WARRANTY -->
+        <h4>Warranty</h4>
+        <p><strong>Warranty (months):</strong> @(Model.Product.WarrantyMonths?.ToString() ?? "—")</p>
+
+        <hr />
+
+        <!-- REVIEWS -->
+        <h4>Reviews</h4>
+        @if (Model.Product.Reviews != null && Model.Product.Reviews.Any())
+        {
+            <ul>
+                @foreach (var r in Model.Product.Reviews)
+                {
+                    <li>
+                        <strong>Rating:</strong> @(r.Rating?.ToString() ?? "—")
+                        <br />
+                        <strong>Comment:</strong> @(r.Comment ?? "—")
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No reviews available.</p>
+        }
+
+    </div>
+
+    <a asp-page="Index" class="btn btn-secondary mt-3">Back to List</a>
+    <a asp-page="Edit" asp-route-id="@Model.Product.Id" class="btn btn-warning mt-3">Edit</a>
+    <a asp-page="Delete" asp-route-id="@Model.Product.Id" class="btn btn-danger mt-3">Delete</a>
+}
